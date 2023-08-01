@@ -1,0 +1,119 @@
+definitions:
+  auth.LoginModel:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  auth.RegisterModel:
+    properties:
+      accountno:
+        type: string
+      fullname:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - accountno
+    - fullname
+    - password
+    - username
+    type: object
+  user.TransferModel:
+    properties:
+      credit:
+        type: integer
+      toAccountNo:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: API for testing
+  title: GOLang API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      description: User Login API
+      parameters:
+      - description: Login
+        in: body
+        name: parameter
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginModel'
+      produces:
+      - application/json
+      responses: {}
+      summary: Login
+      tags:
+      - User API
+  /register:
+    post:
+      description: User Register API
+      parameters:
+      - description: Register
+        in: body
+        name: parameter
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RegisterModel'
+      produces:
+      - application/json
+      responses: {}
+      summary: Register
+      tags:
+      - User API
+  /users/transfercredit:
+    post:
+      description: Transfer credit API
+      parameters:
+      - description: TransferModel
+        in: body
+        name: parameter
+        required: true
+        schema:
+          $ref: '#/definitions/user.TransferModel'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: TransferCredit
+      tags:
+      - Transfer Credit
+  /users/transfercredithistory:
+    get:
+      description: Transfer credit API
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: TransferCreditHistory
+      tags:
+      - Transfer Credit
+  /users/userinfo:
+    get:
+      description: User info API
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: UserInfo
+      tags:
+      - User API
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
